@@ -7,6 +7,10 @@ import './assets/iconfonts/iconfont.css'
 //导入全局样式表
 import './assets/css/global.css'
 
+import axios from 'axios'
+// axios.defaults.baseURL = 
+Vue.prototype.$axios = axios
+
 Vue.config.productionTip = false
 
 new Vue({

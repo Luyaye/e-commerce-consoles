@@ -55,8 +55,17 @@ export default {
       this.$refs.loginFormRef.resetFields();
     },
     login() {
-      this.$refs.loginFormRef.validate((valid) => {
-        console.log(valid);
+      this.$refs.loginFormRef.validate(async (valid) => {
+        if (!valid) return;
+        const { data: res } = await this.$axios.post("login", this.loginForm);
+        if (res.data.code !== 200) return this.$message.error("登录名或密码错误");
+
+        this.$message.success("登录成功");
+        console.log(res);
+        //保存token信息到sessionStorage
+        window.sessionStorage.setItem("login_token", res.data.token);
+        //跳转到home页面
+        this.$router.push("/home");
       });
     }
   }
